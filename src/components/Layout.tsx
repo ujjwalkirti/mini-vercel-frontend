@@ -1,5 +1,6 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,10 +11,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Rocket, LogOut, User } from 'lucide-react';
+import { Rocket, LogOut, User, Sun, Moon } from 'lucide-react';
 
 export function Layout() {
   const { user, signOut } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
@@ -35,6 +37,10 @@ export function Layout() {
           </Link>
 
           <nav className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" onClick={toggleTheme}>
+              {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+              <span className="sr-only">Toggle theme</span>
+            </Button>
             {user ? (
               <>
                 <Link to="/projects">

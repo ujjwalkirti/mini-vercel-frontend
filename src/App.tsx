@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 import { Layout } from '@/components/Layout';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Landing } from '@/pages/Landing';
@@ -11,8 +12,9 @@ import { DeploymentLogs } from '@/pages/DeploymentLogs';
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Landing />} />
@@ -44,8 +46,9 @@ function App() {
             />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
