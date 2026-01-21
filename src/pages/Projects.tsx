@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api, type Project } from '@/lib/api';
@@ -209,7 +210,7 @@ export function Projects() {
               <CardContent>
                 <div className="flex items-center justify-between">
                   <div className="text-sm text-muted-foreground">
-                    {project.subDomain}.localhost:8001
+                    {project.subDomain}.{import.meta.env.VITE_REVERSE_PROXY_URL || 'localhost:8001'}
                   </div>
                   <div className="flex items-center gap-2">
                     <Link to={`/projects/${project.id}`}>
@@ -220,7 +221,7 @@ export function Projects() {
                     </Link>
                     {project.Deployment?.[0]?.status === 'READY' && (
                       <a
-                        href={`http://${project.subDomain}.localhost:8001`}
+                        href={`https://${project.subDomain}.${import.meta.env.VITE_REVERSE_PROXY_URL || 'localhost:8001'}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >

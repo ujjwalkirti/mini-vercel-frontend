@@ -121,7 +121,7 @@ export function ProjectDetail() {
 				</div>
 				<div className="flex items-center gap-2">
 					{deployments[0]?.status === "READY" && (
-						<a href={`https://${project.subDomain}.${reverseProxyUrl}"}`} target="_blank" rel="noopener noreferrer">
+						<a href={`https://${project.subDomain}.${reverseProxyUrl}`} target="_blank" rel="noopener noreferrer">
 							<Button variant="outline" className="gap-2">
 								<ExternalLink className="h-4 w-4" />
 								Visit Site
