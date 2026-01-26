@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ArrowLeft, Loader2, CheckCircle, XCircle, RefreshCw, Clock, Terminal, ExternalLink } from "lucide-react";
+import { getProtocol } from "@/lib/utils";
 
 export function DeploymentLogs() {
 	const { deploymentId } = useParams<{ deploymentId: string }>();
@@ -97,6 +98,7 @@ export function DeploymentLogs() {
 	}
 
 	const reverseProxyUrl = import.meta.env.VITE_REVERSE_PROXY_URL || "localhost:8001";
+	const protocol = getProtocol(reverseProxyUrl);
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<div className="mb-6">
@@ -118,7 +120,7 @@ export function DeploymentLogs() {
 					</div>
 				</div>
 				{deployment.status === "READY" && deployment.project && (
-					<a href={`https://${deployment.project.subDomain}.${deployment.project.customDomain || reverseProxyUrl}`} target="_blank" rel="noopener noreferrer">
+					<a href={`${protocol}://${deployment.project.subDomain}.${deployment.project.customDomain || reverseProxyUrl}`} target="_blank" rel="noopener noreferrer">
 						<Button variant="outline" className="gap-2">
 							<ExternalLink className="h-4 w-4" />
 							Visit Site

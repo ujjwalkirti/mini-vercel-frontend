@@ -17,6 +17,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Plus, Loader2, GitBranch, ExternalLink, Trash2, Rocket, FolderOpen } from 'lucide-react';
+import { getProtocol } from '@/lib/utils';
 
 export function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -114,6 +115,9 @@ export function Projects() {
     );
   }
 
+  const reverseProxyUrl = import.meta.env.VITE_REVERSE_PROXY_URL || 'localhost:8001';
+  const protocol = getProtocol(reverseProxyUrl);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
@@ -210,7 +214,7 @@ export function Projects() {
               <CardContent>
                 <div className="flex items-center justify-between">
                   <div className="text-sm text-muted-foreground">
-                    {project.subDomain}.{import.meta.env.VITE_REVERSE_PROXY_URL || 'localhost:8001'}
+                    {project.subDomain}.{reverseProxyUrl}
                   </div>
                   <div className="flex items-center gap-2">
                     <Link to={`/projects/${project.id}`}>
@@ -221,7 +225,7 @@ export function Projects() {
                     </Link>
                     {project.Deployment?.[0]?.status === 'READY' && (
                       <a
-                        href={`https://${project.subDomain}.${import.meta.env.VITE_REVERSE_PROXY_URL || 'localhost:8001'}`}
+                        href={`${protocol}://${project.subDomain}.${reverseProxyUrl}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >

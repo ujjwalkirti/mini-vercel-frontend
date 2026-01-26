@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, Loader2, GitBranch, ExternalLink, Rocket, Clock, CheckCircle, XCircle, RefreshCw } from "lucide-react";
+import { getProtocol } from "@/lib/utils";
 
 export function ProjectDetail() {
 	const { projectId } = useParams<{ projectId: string }>();
@@ -96,6 +97,7 @@ export function ProjectDetail() {
 	}
 
 	const reverseProxyUrl = import.meta.env.VITE_REVERSE_PROXY_URL || "localhost:8001";
+	const protocol = getProtocol(reverseProxyUrl);
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<div className="mb-6">
@@ -121,7 +123,7 @@ export function ProjectDetail() {
 				</div>
 				<div className="flex items-center gap-2">
 					{deployments[0]?.status === "READY" && (
-						<a href={`https://${project.subDomain}.${reverseProxyUrl}`} target="_blank" rel="noopener noreferrer">
+						<a href={`${protocol}://${project.subDomain}.${reverseProxyUrl}`} target="_blank" rel="noopener noreferrer">
 							<Button variant="outline" className="gap-2">
 								<ExternalLink className="h-4 w-4" />
 								Visit Site
